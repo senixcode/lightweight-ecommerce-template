@@ -1,5 +1,13 @@
 import React from "react";
+import { CssBaseline } from "@material-ui/core";
+import { Navbar } from "./components/organisms/Navbar";
 
 export const App = () => {
-  return <div>App</div>;
+  return (
+    <>
+      {/*CssBaseline: normalize css */}
+      <CssBaseline />
+      <Navbar />
+    </>
+  );
 };
