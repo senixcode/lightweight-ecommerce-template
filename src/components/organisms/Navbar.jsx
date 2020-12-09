@@ -8,7 +8,7 @@ import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
+// import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   search: {
+    flexGrow: 1,
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.black, 0.05),
@@ -78,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Navbar = () => {
+export const Navbar = ({ search }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -155,18 +156,18 @@ export const Navbar = () => {
     <div className={classes.grow}>
       <AppBar position="static" color="inherit" elevation={0}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
-            Ecommerce Light
+            Template Ecommerce Light
           </Typography>
-          <div className={classes.grow} />
+          {/* <div className={classes.grow} /> */}
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -177,6 +178,8 @@ export const Navbar = () => {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              value={search}
+              readOnly
               inputProps={{ "aria-label": "search" }}
             />
           </div>
