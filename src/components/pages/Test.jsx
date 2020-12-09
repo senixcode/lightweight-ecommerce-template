@@ -8,7 +8,7 @@ import React from "react";
 
 export const Test = () => {
   return (
-    <div>
+    <>
       <FormLabel component="legend">Category</FormLabel>
       <FormGroup>
         <FormControlLabel control={<Checkbox name="gilad" />} label="HP" />
@@ -18,8 +18,13 @@ export const Test = () => {
           label="Lenovo"
         />
         <FormControlLabel control={<Checkbox name="antoine" />} label="ASUS" />
+        <FormControlLabel control={<Checkbox name="antoine" />} label="Evoo" />
+        <FormControlLabel
+          control={<Checkbox name="antoine" />}
+          label="Surface"
+        />
         <FormControlLabel control={<Checkbox name="antoine" />} label="Apple" />
       </FormGroup>
-    </div>
+    </>
   );
 };
