@@ -1,66 +1,34 @@
-import React from "react";
-import { CssBaseline, fade, Grid, Hidden, makeStyles } from "@material-ui/core";
+import React, { useState } from "react";
+import { CssBaseline, makeStyles } from "@material-ui/core";
 import { Navbar } from "./components/organisms/Navbar";
-import TestData from "./helper/TestData.json";
-import { Main } from "./components/pages/Main";
-import { Test } from "./components/pages/Test";
+import { BrowserRouter as Router } from "react-router-dom";
+import { SwitchRouter } from "./Routers/SwitchRouter";
+import { getCountry } from "./helper/getCountry";
+import { CountryContext } from "./CountryContext";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
-  },
-  spcing: {
-    margin: theme.spacing(2),
-  },
-  borderSectionCategory: {
-    flexDirection: "row",
-    // justifyItems: "center",
-    // alignItems: "cemter",
-    marginLeft: theme.spacing(2),
-    justifyContent: "flex-start",
     [theme.breakpoints.up("lg")]: {
-      marginLeft: 0,
-      justifyContent: "center",
-      borderLeftColor: fade(theme.palette.common.black, 0.2),
-      borderLeftStyle: "solid",
-      borderRightWidth: "thin",
+      margin: theme.spacing(2),
     },
   },
 }));
 export const App = () => {
   const classes = useStyles();
+  const [country, setCountry] = useState({});
+  getCountry().then((r) => setCountry(r));
   return (
-    <>
-      {/*CssBaseline: normalize css */}
-      <CssBaseline />
-      <Navbar search={TestData.search} />
-      <div className={classes.root}>
-        <Grid container direction="row" justify="center">
-          <Grid container spacing={1} item xs={12} lg={10}>
-            {TestData.result.map((resul) => (
-              <Grid item key={resul.id}>
-                <Main {...resul} />
-              </Grid>
-            ))}
-          </Grid>
-          <Hidden lgUp>
-            <div className={classes.spcing} />
-          </Hidden>
-          <Grid
-            container
-            item
-            spacing={1}
-            xs={12}
-            lg={2}
-            className={classes.borderSectionCategory}
-          >
-            <Grid>
-              <Test></Test>
-            </Grid>
-          </Grid>
-        </Grid>
-      </div>
-    </>
+    <CountryContext.Provider value={{ country, setCountry }}>
+      <Router>
+        {/*CssBaseline: normalize css */}
+        <CssBaseline />
+        <Navbar search="laptop" />
+        <div className={classes.root}>
+          <SwitchRouter />
+        </div>
+      </Router>
+    </CountryContext.Provider>
   );
 };
