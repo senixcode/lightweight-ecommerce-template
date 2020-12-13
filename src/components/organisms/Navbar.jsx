@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,6 +13,7 @@ import SearchIcon from "@material-ui/icons/Search";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { CountryContext } from "../../CountryContext";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -41,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
       width: "auto",
+    },
+  },
+  countryCode: {
+    margin: "0px",
+    [theme.breakpoints.down("sm")]: {
+      marginRight: "10px",
     },
   },
   searchIcon: {
@@ -86,7 +93,8 @@ export const Navbar = ({ search }) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const { country } = useContext(CountryContext);
+  console.log({ country });
   // const handleProfileMenuOpen = (event) => {
   //   setAnchorEl(event.currentTarget);
   // };
@@ -152,6 +160,7 @@ export const Navbar = ({ search }) => {
       </MenuItem> */}
     </Menu>
   );
+
   return (
     <div className={classes.grow}>
       <AppBar position="static" color="inherit" elevation={0}>
@@ -165,9 +174,12 @@ export const Navbar = ({ search }) => {
             <MenuIcon />
           </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
-            Template Ecommerce Light
+            Ecommerce light
           </Typography>
-          {/* <div className={classes.grow} /> */}
+          <div className={classes.grow} />
+          <Typography className={classes.countryCode} variant="body1">
+            {country.data ? " " + country.data.country_code : ""}
+          </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
