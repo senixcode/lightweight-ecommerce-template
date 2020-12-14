@@ -13,7 +13,8 @@ import SearchIcon from "@material-ui/icons/Search";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { CountryContext } from "../../CountryContext";
+import { MyContext } from "../../MyContext";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -93,8 +94,16 @@ export const Navbar = ({ search }) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const { country } = useContext(CountryContext);
-  console.log({ country });
+  const { country } = useContext(MyContext);
+  const { get } = useLocalStorage();
+  const validateCountry = () => {
+    let countryCode = get("country_code");
+    if (countryCode) {
+      return countryCode;
+    } else {
+      return country;
+    }
+  };
   // const handleProfileMenuOpen = (event) => {
   //   setAnchorEl(event.currentTarget);
   // };
@@ -178,7 +187,7 @@ export const Navbar = ({ search }) => {
           </Typography>
           <div className={classes.grow} />
           <Typography className={classes.countryCode} variant="body1">
-            {country.data ? " " + country.data.country_code : ""}
+            {validateCountry()}
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
