@@ -3,5 +3,6 @@ import { getIpPublicClient } from "./getIpPublicClient";
 
 export const getCountry = async () => {
   const { data } = await getIpPublicClient();
-  return await Axios.get(`https://freegeoip.live/json/${data}`);
+  const response = await Axios.get(`https://freegeoip.live/json/${data}`);
+  return response.data;
 };
