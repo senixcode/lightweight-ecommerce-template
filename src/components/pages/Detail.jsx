@@ -5,6 +5,7 @@ import { getProductById } from "../../helper/getProductById";
 import { Button, Grid } from "@material-ui/core";
 import { CardMediaCustom } from "../molecules/CardMediaCustom";
 import { CardContentCustom } from "../molecules/CardContentCustom";
+import { SectionShoppingCart } from "../organisms/SectionShoppingCart";
 
 export const Detail = ({ history }) => {
   const { id } = useParams();
@@ -54,7 +55,7 @@ export const Detail = ({ history }) => {
             variant="text"
             onClick={() => handleReturn()}
             color="default"
-            style={{ margin: "1.5px" }}
+            style={{ margin: "1.2px" }}
           >
             Return
           </Button>
@@ -66,29 +67,16 @@ export const Detail = ({ history }) => {
           xs={12}
           lg={5}
           style={{
-            borderStyle: "solid",
-            borderWidth: 1,
-            borderColor: "black",
             maxHeight: "450px",
           }}
         >
           <CardMediaCustom {...propsCardMediaCustom} />
         </Grid>
-        <Grid
-          item
-          xs={12}
-          lg={4}
-          style={{ borderStyle: "solid", borderWidth: 1, borderColor: "black" }}
-        >
+        <Grid item xs={12} lg={4}>
           <CardContentCustom {...propsCardContenCustom} />
         </Grid>
-        <Grid
-          item
-          xs={12}
-          lg={3}
-          style={{ borderStyle: "solid", borderWidth: 1, borderColor: "black" }}
-        >
-          <h1>layout 3</h1>
+        <Grid item xs={12} lg={2}>
+          <SectionShoppingCart {...product} />
         </Grid>
       </Grid>
     </Grid>
