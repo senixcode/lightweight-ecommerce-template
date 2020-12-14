@@ -4,7 +4,8 @@ import { Navbar } from "./components/organisms/Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SwitchRouter } from "./Routers/SwitchRouter";
 import { getCountry } from "./helper/getCountry";
-import { CountryContext } from "./CountryContext";
+import { MyContext } from "./MyContext";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -17,10 +18,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 export const App = () => {
   const classes = useStyles();
-  const [country, setCountry] = useState({});
-  getCountry().then((r) => setCountry(r));
+  const [country, setCountry] = useState("");
+  const { get, set } = useLocalStorage();
+  get("country_code") === null &&
+    getCountry().then((r) => {
+      setCountry(r.country_code);
+      set("country_code", r.country_code);
+    });
+
   return (
-    <CountryContext.Provider value={{ country, setCountry }}>
+    <MyContext.Provider value={{ country, setCountry }}>
       <Router>
         {/*CssBaseline: normalize css */}
         <CssBaseline />
@@ -29,6 +36,6 @@ export const App = () => {
           <SwitchRouter />
         </div>
       </Router>
-    </CountryContext.Provider>
+    </MyContext.Provider>
   );
 };
