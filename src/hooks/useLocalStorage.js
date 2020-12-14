@@ -1,6 +1,6 @@
 export const useLocalStorage = () => {
   const set = (key, value) => {
-    if (typeof value === "object") {
+    if (typeof value === "object" || Array.isArray(value)) {
       value = JSON.stringify(value);
     }
     localStorage.setItem(key, value);
