@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { CssBaseline, makeStyles } from "@material-ui/core";
+import {
+  createMuiTheme,
+  CssBaseline,
+  makeStyles,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@material-ui/core";
 import { Navbar } from "./components/organisms/Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SwitchRouter } from "./Routers/SwitchRouter";
@@ -16,9 +22,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+let theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
 export const App = () => {
   const classes = useStyles();
   const [country, setCountry] = useState("");
+  const [cart, setCart] = useState(0);
   const { get, set } = useLocalStorage();
   get("country_code") === null &&
     getCountry().then((r) => {
@@ -27,15 +36,17 @@ export const App = () => {
     });
 
   return (
-    <MyContext.Provider value={{ country, setCountry }}>
-      <Router>
-        {/*CssBaseline: normalize css */}
-        <CssBaseline />
-        <Navbar search="laptop" />
-        <div className={classes.root}>
-          <SwitchRouter />
-        </div>
-      </Router>
-    </MyContext.Provider>
+    <ThemeProvider theme={theme}>
+      <MyContext.Provider value={{ country, setCountry, cart, setCart }}>
+        <Router>
+          {/*CssBaseline: normalize css */}
+          <CssBaseline />
+          <Navbar search="laptop" />
+          <div className={classes.root}>
+            <SwitchRouter />
+          </div>
+        </Router>
+      </MyContext.Provider>
+    </ThemeProvider>
   );
 };
