@@ -15,12 +15,10 @@ export const Detail = ({ history }) => {
   }
   const Description = () => (
     <>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit,
-        quibusdam. Illo eum, eligendi odit doloremque magnam, ad totam
-        architecto aspernatur dolores quos similique perspiciatis sequi
-        asperiores. Voluptatum sapiente atque nesciunt.
-      </p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit,
+      quibusdam. Illo eum, eligendi odit doloremque magnam, ad totam architecto
+      aspernatur dolores quos similique perspiciatis sequi asperiores.
+      Voluptatum sapiente atque nesciunt.
     </>
   );
 
