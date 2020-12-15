@@ -16,18 +16,44 @@ import ShopIcon from "@material-ui/icons/Shop";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { MyContext } from "../../MyContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import _ from "lodash";
 export const SectionShoppingCart = (props) => {
-  const { country } = useContext(MyContext);
-  const { get } = useLocalStorage();
+  const { country, setCart } = useContext(MyContext);
+  const { get, set } = useLocalStorage();
   const validateCountry = () => {
     let countryCode = get("country_code");
     if (countryCode) {
-      return countryCode;
+      return " " + countryCode;
     } else {
-      return country;
+      return " " + country;
     }
   };
   const handleAddToCart = () => {
+    let getCart = get("cart");
+    let cartLocalStorage = JSON.parse(getCart || "[]");
+    if (getCart) {
+      const repeatedProduct = cartLocalStorage.find(
+        (product) => product.id === props.id
+      );
+      if (repeatedProduct) {
+        repeatedProduct.quantity = repeatedProduct.quantity + 1;
+        let updateProduct = _.cloneDeep(repeatedProduct);
+        let index = _.findIndex(cartLocalStorage, repeatedProduct);
+        cartLocalStorage.splice(index, 1, updateProduct);
+        set("cart", cartLocalStorage);
+      } else {
+        let copyProps = _.cloneDeep(props);
+        let newProduct = { ...copyProps, ...{ quantity: 1 } };
+        cartLocalStorage.push(newProduct);
+        set("cart", cartLocalStorage);
+        // setCart(getCart.length)
+      }
+    } else {
+      let copyProps = _.cloneDeep(props);
+      let newProduct = { ...copyProps, ...{ quantity: 1 } };
+      set("cart", [newProduct]);
+      setCart(1);
+    }
     // console.log(props);
     // setCart((cart) => [...cart, props]);
     // console.log(cart);
@@ -70,9 +96,10 @@ export const SectionShoppingCart = (props) => {
             </Button>
           </Grid>
           <Grid item>
-            <Typography variant="body" color="textSecondary" gutterBottom>
-              <LocationOnIcon fontSize="small" /> Deliver to
-              {" " + validateCountry()}
+            <Typography variant="body2" color="textSecondary">
+              <LocationOnIcon fontSize="small" />
+              Deliver to
+              {validateCountry()}
             </Typography>
           </Grid>
         </Grid>
