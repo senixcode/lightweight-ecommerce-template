@@ -15,6 +15,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { MyContext } from "../../MyContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -89,13 +90,20 @@ const useStyles = makeStyles((theme) => ({
 
 export const Navbar = ({ search }) => {
   const classes = useStyles();
+  let history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const { country } = useContext(MyContext);
+  const { country, cart } = useContext(MyContext);
   const { get } = useLocalStorage();
+  const handlePushCart = () => {
+    history.push(`/cart`);
+  };
+  const handlePushProduct = () => {
+    history.push(`/`);
+  };
   const validateCountry = () => {
     let countryCode = get("country_code");
     if (countryCode) {
@@ -103,6 +111,14 @@ export const Navbar = ({ search }) => {
     } else {
       return country;
     }
+  };
+  const handleValidatedCartQuantity = () => {
+    let getCart = get("cart");
+    if (getCart) {
+      let cartLocalStorage = JSON.parse(getCart || "[]");
+      return cartLocalStorage.length;
+    }
+    return cart;
   };
   // const handleProfileMenuOpen = (event) => {
   //   setAnchorEl(event.currentTarget);
@@ -149,8 +165,12 @@ export const Navbar = ({ search }) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={0} color="secondary">
+        <IconButton
+          onClick={() => handlePushCart()}
+          aria-label="show 4 new mails"
+          color="inherit"
+        >
+          <Badge badgeContent={handleValidatedCartQuantity()} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -182,7 +202,12 @@ export const Navbar = ({ search }) => {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography
+            onClick={() => handlePushProduct()}
+            className={classes.title}
+            variant="h6"
+            noWrap
+          >
             Ecommerce light
           </Typography>
           <div className={classes.grow} />
@@ -206,8 +231,15 @@ export const Navbar = ({ search }) => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={0} color="secondary">
+            <IconButton
+              onClick={() => handlePushCart()}
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
+              <Badge
+                badgeContent={handleValidatedCartQuantity()}
+                color="secondary"
+              >
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
