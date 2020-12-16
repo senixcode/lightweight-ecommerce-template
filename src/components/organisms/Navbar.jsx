@@ -208,7 +208,7 @@ export const Navbar = ({ search }) => {
             variant="h6"
             noWrap
           >
-            Ecommerce light
+            Lightweight ecommerce template
           </Typography>
           <div className={classes.grow} />
           <Typography className={classes.countryCode} variant="body1">
