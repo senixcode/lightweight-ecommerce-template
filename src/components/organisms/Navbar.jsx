@@ -164,7 +164,7 @@ export const Navbar = ({ search }) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={() => handlePushCart()}>
         <IconButton
           onClick={() => handlePushCart()}
           aria-label="show 4 new mails"
