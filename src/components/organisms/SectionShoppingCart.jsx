@@ -47,7 +47,7 @@ export const SectionShoppingCart = (props) => {
         let newProduct = { ...copyProps, ...{ quantity: 1 } };
         cartLocalStorage.push(newProduct);
         set("cart", cartLocalStorage);
-        // setCart(getCart.length)
+        setCart(getCart.length);
       }
     } else {
       let copyProps = _.cloneDeep(props);
