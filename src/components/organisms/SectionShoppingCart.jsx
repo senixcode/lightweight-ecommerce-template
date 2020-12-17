@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Card,
@@ -20,6 +20,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import _ from "lodash";
 export const SectionShoppingCart = (props) => {
   const { country, setCart } = useContext(MyContext);
+  const [quantity, setQuantity] = useState(1);
   const { get, set } = useLocalStorage();
   const validateCountry = () => {
     let countryCode = get("country_code");
@@ -29,6 +30,8 @@ export const SectionShoppingCart = (props) => {
       return " " + country;
     }
   };
+  const handleChangeQuantity = (event) => setQuantity(event.target.value);
+
   const handleAddToCart = () => {
     let getCart = get("cart");
     let cartLocalStorage = JSON.parse(getCart || "[]");
@@ -36,22 +39,23 @@ export const SectionShoppingCart = (props) => {
       const repeatedProduct = cartLocalStorage.find(
         (product) => product.id === props.id
       );
+
       if (repeatedProduct) {
-        repeatedProduct.quantity = repeatedProduct.quantity + 1;
+        repeatedProduct.quantity = repeatedProduct.quantity + quantity;
         let updateProduct = _.cloneDeep(repeatedProduct);
         let index = _.findIndex(cartLocalStorage, repeatedProduct);
         cartLocalStorage.splice(index, 1, updateProduct);
         set("cart", cartLocalStorage);
       } else {
         let copyProps = _.cloneDeep(props);
-        let newProduct = { ...copyProps, ...{ quantity: 1 } };
+        let newProduct = { ...copyProps, ...{ quantity } };
         cartLocalStorage.push(newProduct);
         set("cart", cartLocalStorage);
         setCart(getCart.length);
       }
     } else {
       let copyProps = _.cloneDeep(props);
-      let newProduct = { ...copyProps, ...{ quantity: 1 } };
+      let newProduct = { ...copyProps, ...{ quantity } };
       set("cart", [newProduct]);
       setCart(1);
     }
@@ -66,7 +70,11 @@ export const SectionShoppingCart = (props) => {
           <Grid item>
             <FormControl>
               <InputLabel id="select-qty">Qty</InputLabel>
-              <Select id="select-qty" value={1}>
+              <Select
+                id="select-qty"
+                onChange={handleChangeQuantity}
+                value={quantity}
+              >
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>

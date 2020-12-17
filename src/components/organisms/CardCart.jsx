@@ -17,6 +17,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { shortString } from "../../helper/shortString";
 import json2mq from "json2mq";
+import _ from "lodash";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -60,6 +61,7 @@ export const CardCart = (props) => {
   const handlePushDetail = () => {
     history.push(`/product/${props.id}`);
   };
+  const arrayPropsQuantity = _.range(props.quantity);
 
   return (
     <Card className={classes.root}>
@@ -82,12 +84,15 @@ export const CardCart = (props) => {
               <Grid item>
                 <FormControl>
                   <InputLabel id="select-qty">Qty</InputLabel>
-                  <Select id="select-qty" value={1}>
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
+                  <Select id="select-qty" value={props.quantity}>
+                    {arrayPropsQuantity.map((number) => {
+                      number = number + 1;
+                      return (
+                        <MenuItem key={number} value={number}>
+                          {number}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
               </Grid>
