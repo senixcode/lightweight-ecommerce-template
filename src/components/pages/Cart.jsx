@@ -8,6 +8,11 @@ export const Cart = () => {
   // const [carts, setCarts] = useState([]);
   const { get } = useLocalStorage();
   const carts = get("cart") ? JSON.parse(get("cart")) : [];
+  const sumTotal =
+    carts.length > 0
+      ? carts.reduce((sum, { price, quantity }) => sum + price * quantity, 0)
+      : 0;
+  console.log({ sumTotal });
   return (
     <Container fixed>
       <Grid container direction="column" spacing={1}>
@@ -28,7 +33,7 @@ export const Cart = () => {
               ))}
           </Grid>
           <Grid item xs={12} md={2}>
-            <SectionBuy />
+            <SectionBuy sumTotal={sumTotal} />
           </Grid>
         </Grid>
       </Grid>
