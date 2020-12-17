@@ -28,7 +28,7 @@ export const HoverRating = ({ scord = 0 }) => {
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
   const classes = useStyles();
-  console.log({ scord });
+
   return (
     <div className={classes.root}>
       <Rating
@@ -43,7 +43,7 @@ export const HoverRating = ({ scord = 0 }) => {
         }}
       />
       {value !== null && (
-        <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
+        <Box ml={2}>{labels[hover !== -1 ? hover : scord]}</Box>
       )}
     </div>
   );
