@@ -12,7 +12,6 @@ export const Cart = () => {
     carts.length > 0
       ? carts.reduce((sum, { price, quantity }) => sum + price * quantity, 0)
       : 0;
-  console.log({ sumTotal });
   return (
     <Container fixed>
       <Grid container direction="column" spacing={1}>
