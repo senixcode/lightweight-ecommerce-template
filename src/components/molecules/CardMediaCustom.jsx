@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { CardMedia, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   zoomImg: {
+    position: "relative",
+    zIndex: 100,
     [theme.breakpoints.up("lg")]: {
       transitionDuration: "0.4s",
       transform: "translate(200px) scale(1.4,1.4)",
