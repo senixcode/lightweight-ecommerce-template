@@ -2,12 +2,12 @@ import React, { useMemo } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { getProductById } from "../../helper/getProductById";
 
-import { Box, Button, Grid } from "@material-ui/core";
+import { Box, Button, Divider, Grid } from "@material-ui/core";
 import { CardMediaCustom } from "../molecules/CardMediaCustom";
 import { CardContentCustom } from "../molecules/CardContentCustom";
 import { SectionShoppingCart } from "../organisms/SectionShoppingCart";
 import { HoverRating } from "../organisms/HoverRating";
-
+import currencyFormatter from "currency-formatter";
 export const Detail = ({ history }) => {
   const { id } = useParams();
   const product = useMemo(() => getProductById(id), [id]);
@@ -18,7 +18,11 @@ export const Detail = ({ history }) => {
   const description = (
     <>
       <HoverRating scord={product.scored} />
-      <Box>
+      <Divider />
+      <Box style={{ marginTop: "1em" }}>
+        {currencyFormatter.format(product.price, { code: "USD" })}
+      </Box>
+      <Box style={{ marginTop: "4px" }}>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit,
         quibusdam. Illo eum, eligendi odit doloremque magnam, ad totam
         architecto aspernatur dolores quos similique perspiciatis sequi
