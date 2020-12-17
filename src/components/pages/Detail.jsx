@@ -14,7 +14,6 @@ export const Detail = ({ history }) => {
   if (!product) {
     return <Redirect to="/" />;
   }
-  console.log(product);
   const description = (
     <>
       <HoverRating scord={product.scored} />
