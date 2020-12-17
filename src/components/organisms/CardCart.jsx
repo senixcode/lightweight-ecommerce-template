@@ -18,6 +18,7 @@ import { useHistory } from "react-router-dom";
 import { shortString } from "../../helper/shortString";
 import json2mq from "json2mq";
 import _ from "lodash";
+import currencyFormatter from "currency-formatter";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -102,7 +103,9 @@ export const CardCart = (props) => {
                 <Typography color="textSecondary">Price:</Typography>
               </Grid>
               <Grid item>
-                <Typography color="textSecondary">{props.price}</Typography>
+                <Typography color="textSecondary">
+                  {currencyFormatter.format(props.price, { code: "USD" })}
+                </Typography>
               </Grid>
             </Grid>
             <Grid item container direction="row" spacing={2}>
@@ -110,7 +113,11 @@ export const CardCart = (props) => {
                 <Typography color="textSecondary">Total:</Typography>
               </Grid>
               <Grid item>
-                <Typography color="textSecondary">{props.price}</Typography>
+                <Typography color="textSecondary">
+                  {currencyFormatter.format(props.price * props.quantity, {
+                    code: "USD",
+                  })}
+                </Typography>
               </Grid>
             </Grid>
           </Grid>

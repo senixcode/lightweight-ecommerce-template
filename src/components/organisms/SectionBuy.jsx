@@ -12,7 +12,8 @@ import ShopIcon from "@material-ui/icons/Shop";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { MyContext } from "../../MyContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-export const SectionBuy = () => {
+import currencyFormatter from "currency-formatter";
+export const SectionBuy = ({ sumTotal }) => {
   const { country } = useContext(MyContext);
   const { get } = useLocalStorage();
   const validateCountry = () => {
@@ -39,6 +40,11 @@ export const SectionBuy = () => {
                 Buy Now
               </Button>
             </Tooltip>
+          </Grid>
+          <Grid item>
+            <Typography variant="body1">
+              {"Total: " + currencyFormatter.format(sumTotal, { code: "USD" })}
+            </Typography>
           </Grid>
           <Grid item>
             <Typography variant="body2" color="textSecondary">
