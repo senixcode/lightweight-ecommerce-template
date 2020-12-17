@@ -85,7 +85,7 @@ export const CardCart = (props) => {
               <Grid item>
                 <FormControl>
                   <InputLabel id="select-qty">Qty</InputLabel>
-                  <Select id="select-qty" value={props.quantity}>
+                  <Select id="select-qty" value={props.quantity} disabled>
                     {arrayPropsQuantity.map((number) => {
                       number = number + 1;
                       return (
