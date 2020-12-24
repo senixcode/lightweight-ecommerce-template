@@ -4,7 +4,7 @@ import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <h1>hola prueba</h1>
   </React.StrictMode>,
   document.getElementById("root")
 );
