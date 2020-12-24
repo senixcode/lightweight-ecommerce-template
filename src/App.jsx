@@ -38,7 +38,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <MyContext.Provider value={{ country, setCountry, cart, setCart }}>
-        <Router>
+        <Router basename="lightweight-ecommerce-template">
           {/*CssBaseline: normalize css */}
           <CssBaseline />
           <Navbar search="laptop" />
