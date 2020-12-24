@@ -59,9 +59,6 @@ export const SectionShoppingCart = (props) => {
       set("cart", [newProduct]);
       setCart(1);
     }
-    // console.log(props);
-    // setCart((cart) => [...cart, props]);
-    // console.log(cart);
   };
   return (
     <Card>
