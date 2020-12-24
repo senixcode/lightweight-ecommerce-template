@@ -24,6 +24,7 @@ export const SectionCategories = ({ filterProduct, products }) => {
   );
   let getCategories = get("categories");
   let categoriesLocalStorage = JSON.parse(getCategories || "[]");
+  getCategories === null && set("categories", filterCategories);
   const [categories, setCategories] = useState(
     getCategories ? categoriesLocalStorage : filterCategories
   );
