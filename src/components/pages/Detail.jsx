@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { getProductById } from "../../helper/getProductById";
 
-import { Box, Button, Divider, Grid } from "@material-ui/core";
+import { Button, Divider, Grid, Typography } from "@material-ui/core";
 import { CardMediaCustom } from "../molecules/CardMediaCustom";
 import { CardContentCustom } from "../molecules/CardContentCustom";
 import { SectionShoppingCart } from "../organisms/SectionShoppingCart";
@@ -38,17 +38,15 @@ export const Detail = ({ history }) => {
     <>
       <HoverRating scord={product.scored} />
       <Divider />
-      <Box style={{ marginTop: "1em" }}>
-        {currencyFormatter.format(product.price, { code: "USD" })}
-      </Box>
-      <Box style={{ marginTop: "4px" }}>
+      <p>{currencyFormatter.format(product.price, { code: "USD" })}</p>
+      <Typography variant="overline">
         {slice
           ? shortString(descriptionHardCode, descriptionLimit)
           : descriptionHardCode}
-        <p onClick={handleShowDescription}>
-          {slice ? "show more" : " show less"}
-        </p>
-      </Box>
+      </Typography>
+      <p onClick={handleShowDescription}>
+        {slice ? "show more" : " show less"}
+      </p>
     </>
   );
 
@@ -58,7 +56,7 @@ export const Detail = ({ history }) => {
   };
   const propsCardMediaCustom = {
     alt: product.title,
-    height: "100%",
+    height: "auto",
     src: product.image,
     title: product.title,
     zoom: true,
