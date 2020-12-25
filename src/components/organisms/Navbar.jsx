@@ -203,7 +203,7 @@ export const Navbar = ({ search }) => {
             <MenuIcon />
           </IconButton> */}
           <Typography
-            onClick={() => handlePushProduct()}
+            onClick={handlePushProduct}
             className={classes.title}
             variant="h6"
             noWrap
@@ -214,7 +214,7 @@ export const Navbar = ({ search }) => {
           <Typography className={classes.countryCode} variant="body1">
             {validateCountry()}
           </Typography>
-          <div className={classes.search}>
+          <div className={classes.search} onClick={handlePushProduct}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
