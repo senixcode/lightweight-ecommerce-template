@@ -1,13 +1,20 @@
+import React, { useState } from "react";
 import { Container, Grid, Typography } from "@material-ui/core";
-import React from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { CardCart } from "../organisms/CardCart";
 import { SectionBuy } from "../organisms/SectionBuy";
-
+import _ from "lodash";
 export const Cart = () => {
-  // const [carts, setCarts] = useState([]);
-  const { get } = useLocalStorage();
-  const carts = get("cart") ? JSON.parse(get("cart")) : [];
+  const { get, set } = useLocalStorage();
+  let getCart = () => get("cart");
+  let serializeCart = () => JSON.parse(get("cart") || []);
+  const [carts, setCarts] = useState(getCart() ? serializeCart() : []);
+  const removeCart = (item) => {
+    let cloneCarts = _.cloneDeep(carts);
+    _.remove(cloneCarts, (cart) => cart.id === item.id);
+    set("cart", cloneCarts);
+    setCarts(cloneCarts);
+  };
   const sumTotal =
     carts.length > 0
       ? carts.reduce((sum, { price, quantity }) => sum + price * quantity, 0)
@@ -27,7 +34,7 @@ export const Cart = () => {
                   xs={12}
                   style={{ marginBottom: "8px" }}
                 >
-                  <CardCart {...cart} />
+                  <CardCart cart={cart} removeCart={removeCart} />
                 </Grid>
               ))}
           </Grid>

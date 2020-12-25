@@ -7,10 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
+import LinkMaterialUI from "@material-ui/core/Link";
 import Menu from "@material-ui/core/Menu";
-// import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-// import AccountCircle from "@material-ui/icons/AccountCircle";
+import GitHubIcon from "@material-ui/icons/GitHub";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { MyContext } from "../../MyContext";
@@ -176,17 +176,17 @@ export const Navbar = ({ search }) => {
         </IconButton>
         <p>Carrito</p>
       </MenuItem>
-      {/* <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
+      <MenuItem>
+        <LinkMaterialUI
+          component={IconButton}
           color="inherit"
+          target="_blank"
+          href="https://github.com/senixcode/lightweight-ecommerce-template"
         >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem> */}
+          <GitHubIcon />
+        </LinkMaterialUI>
+        <p>Source code</p>
+      </MenuItem>
     </Menu>
   );
 
@@ -194,16 +194,8 @@ export const Navbar = ({ search }) => {
     <div className={classes.grow}>
       <AppBar position="static" color="inherit" elevation={0}>
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton> */}
           <Typography
-            onClick={() => handlePushProduct()}
+            onClick={handlePushProduct}
             className={classes.title}
             variant="h6"
             noWrap
@@ -214,7 +206,7 @@ export const Navbar = ({ search }) => {
           <Typography className={classes.countryCode} variant="body1">
             {validateCountry()}
           </Typography>
-          <div className={classes.search}>
+          <div className={classes.search} onClick={handlePushProduct}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -231,9 +223,17 @@ export const Navbar = ({ search }) => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <LinkMaterialUI
+              component={IconButton}
+              color="inherit"
+              target="_blank"
+              href="https://github.com/senixcode/lightweight-ecommerce-template"
+            >
+              <GitHubIcon />
+            </LinkMaterialUI>
             <IconButton
               onClick={() => handlePushCart()}
-              aria-label="show 4 new mails"
+              aria-label="shopping cart"
               color="inherit"
             >
               <Badge
@@ -243,16 +243,6 @@ export const Navbar = ({ search }) => {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            {/* <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton> */}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

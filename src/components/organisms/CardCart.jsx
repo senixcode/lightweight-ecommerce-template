@@ -9,11 +9,13 @@ import {
   FormControl,
   Grid,
   Hidden,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
   useMediaQuery,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { useHistory } from "react-router-dom";
 import { shortString } from "../../helper/shortString";
 import json2mq from "json2mq";
@@ -22,29 +24,16 @@ import currencyFormatter from "currency-formatter";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    maxHeight: 200,
+    flexGrow: 1,
   },
 
-  content: {
-    flex: "1 0 auto",
-    alignItems: "center",
-    alignContent: "center",
-  },
   cover: {
-    minWidth: 180,
-    minHeight: 150,
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
-  },
-  margin: {
-    flex: "1",
-    marginLeft: theme.spacing(1),
+    minWidth: "18rem",
+    minHeight: "1em",
   },
 }));
 
-export const CardCart = (props) => {
+export const CardCart = ({ cart, removeCart }) => {
   const classes = useStyles();
   const history = useHistory();
   const matches = useMediaQuery(
@@ -54,75 +43,82 @@ export const CardCart = (props) => {
   );
   const title = () => {
     if (matches) {
-      return shortString(props.title, 55);
+      return shortString(cart.title, 55);
     } else {
-      return props.title;
+      return cart.title;
     }
   };
   const handlePushDetail = () => {
-    history.push(`/product/${props.id}`);
+    history.push(`/product/${cart.id}`);
   };
-  const arrayPropsQuantity = _.range(props.quantity);
+  const arrayPropsQuantity = _.range(cart.quantity);
 
   return (
     <Card className={classes.root}>
       <Hidden smDown>
         <CardMedia
           className={classes.cover}
-          image={props.image}
-          title={props.title}
+          image={cart.image}
+          title={cart.title}
         />
       </Hidden>
-      <div className={classes.details}>
-        <CardContent>
-          <Grid container direction="column">
+      <CardContent>
+        <Grid container direction="column">
+          <Grid item container direction="row" justify="flex-end">
+            <IconButton
+              color="secondary"
+              style={{ boxSizing: "content-box", padding: 3 }}
+              onClick={() => removeCart(cart)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <Typography component="p" variant="body1">
+              <Link onClick={handlePushDetail}>{title()}</Link>
+            </Typography>
+          </Grid>
+          <Grid item container direction="row" spacing={1}>
             <Grid item>
-              <Typography component="p" variant="body1">
-                <Link onClick={handlePushDetail}>{title()}</Link>
-              </Typography>
-            </Grid>
-            <Grid item container direction="row" spacing={2}>
-              <Grid item>
-                <FormControl>
-                  <InputLabel id="select-qty">Qty</InputLabel>
-                  <Select id="select-qty" value={props.quantity} disabled>
-                    {arrayPropsQuantity.map((number) => {
-                      number = number + 1;
-                      return (
-                        <MenuItem key={number} value={number}>
-                          {number}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-            <Grid item container direction="row" spacing={2}>
-              <Grid item>
-                <Typography color="textSecondary">Price:</Typography>
-              </Grid>
-              <Grid item>
-                <Typography color="textSecondary">
-                  {currencyFormatter.format(props.price, { code: "USD" })}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item container direction="row" spacing={2}>
-              <Grid item>
-                <Typography color="textSecondary">Total:</Typography>
-              </Grid>
-              <Grid item>
-                <Typography color="textSecondary">
-                  {currencyFormatter.format(props.price * props.quantity, {
-                    code: "USD",
+              <FormControl>
+                <InputLabel id="select-qty">Qty</InputLabel>
+                <Select id="select-qty" value={cart.quantity} disabled>
+                  {arrayPropsQuantity.map((number) => {
+                    number = number + 1;
+                    return (
+                      <MenuItem key={number} value={number}>
+                        {number}
+                      </MenuItem>
+                    );
                   })}
-                </Typography>
-              </Grid>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
-        </CardContent>
-      </div>
+          <Grid item container direction="row" spacing={1}>
+            <Grid item>
+              <Typography color="textSecondary">Price:</Typography>
+            </Grid>
+            <Grid item>
+              <Typography color="textSecondary">
+                {currencyFormatter.format(cart.price, { code: "USD" })}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item container direction="row" spacing={1}>
+            <Grid item>
+              <Typography color="textSecondary">Total:</Typography>
+            </Grid>
+            <Grid item>
+              <Typography color="textSecondary">
+                {currencyFormatter.format(cart.price * cart.quantity, {
+                  code: "USD",
+                })}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </CardContent>
     </Card>
   );
 };
