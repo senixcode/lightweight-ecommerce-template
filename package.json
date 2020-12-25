@@ -1,8 +1,7 @@
 {
-  "name": "ecommerce-react",
+  "name": "lightweight-ecommerce-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://senixcode.github.io/lightweight-ecommerce-template",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
