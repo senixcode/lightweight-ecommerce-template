@@ -5,6 +5,7 @@ import { CardProduct } from "../organisms/CardProduct";
 import { SectionCategories } from "../organisms/SectionCategories";
 import _ from "lodash";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { ButtonBack } from "../molecules/ButtonBack";
 const useStyles = makeStyles((theme) => ({
   spcing: {
     margin: theme.spacing(2),
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export const Product = () => {
+export const Product = ({ history }) => {
   const classes = useStyles();
   const { get, set } = useLocalStorage();
 
@@ -100,6 +101,7 @@ export const Product = () => {
           />
         </Grid>
       </Grid>
+      <ButtonBack history={history} />
     </Grid>
   );
 };

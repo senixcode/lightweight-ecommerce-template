@@ -4,7 +4,8 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { CardCart } from "../organisms/CardCart";
 import { SectionBuy } from "../organisms/SectionBuy";
 import _ from "lodash";
-export const Cart = () => {
+import { ButtonBack } from "../molecules/ButtonBack";
+export const Cart = ({ history }) => {
   const { get, set } = useLocalStorage();
   let getCart = () => get("cart");
   let serializeCart = () => JSON.parse(get("cart") || []);
@@ -43,6 +44,8 @@ export const Cart = () => {
           </Grid>
         </Grid>
       </Grid>
+
+      <ButtonBack history={history} />
     </Container>
   );
 };

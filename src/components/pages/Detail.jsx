@@ -2,13 +2,14 @@ import React, { useMemo, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { getProductById } from "../../helper/getProductById";
 
-import { Button, Divider, Grid, Typography } from "@material-ui/core";
+import { Divider, Grid, Typography } from "@material-ui/core";
 import { CardMediaCustom } from "../molecules/CardMediaCustom";
 import { CardContentCustom } from "../molecules/CardContentCustom";
 import { SectionShoppingCart } from "../organisms/SectionShoppingCart";
 import { HoverRating } from "../organisms/HoverRating";
 import currencyFormatter from "currency-formatter";
 import { shortString } from "../../helper/shortString";
+import { ButtonBack } from "../molecules/ButtonBack";
 export const Detail = ({ history }) => {
   const { id } = useParams();
   const [slice, setSlice] = useState(true);
@@ -61,13 +62,7 @@ export const Detail = ({ history }) => {
     title: product.title,
     zoom: true,
   };
-  const handleReturn = () => {
-    if (history.length <= 2) {
-      history.push("/");
-    } else {
-      history.goBack();
-    }
-  };
+
   return (
     <Grid
       container
@@ -75,18 +70,6 @@ export const Detail = ({ history }) => {
       justify="space-around"
       alignItems="center"
     >
-      <Grid container direction="row" justify="flex-end">
-        <Grid item>
-          <Button
-            variant="text"
-            onClick={() => handleReturn()}
-            color="default"
-            style={{ margin: "1.2px" }}
-          >
-            Return
-          </Button>
-        </Grid>
-      </Grid>
       <Grid container direction="row" justify="center">
         <Grid
           item
@@ -105,6 +88,7 @@ export const Detail = ({ history }) => {
           <SectionShoppingCart {...product} />
         </Grid>
       </Grid>
+      <ButtonBack history={history} />
     </Grid>
   );
 };
