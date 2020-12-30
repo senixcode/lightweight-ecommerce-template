@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, Grid, Typography } from "@material-ui/core";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { CardCart } from "../organisms/CardCart";
 import { SectionBuy } from "../organisms/SectionBuy";
 import _ from "lodash";
 import { ButtonBack } from "../molecules/ButtonBack";
+import { MyContext } from "../../MyContext";
 export const Cart = ({ history }) => {
   const { get, set } = useLocalStorage();
+  const { setCart } = useContext(MyContext);
   let getCart = () => get("cart");
   let serializeCart = () => JSON.parse(get("cart") || []);
   const [carts, setCarts] = useState(getCart() ? serializeCart() : []);
@@ -15,6 +17,7 @@ export const Cart = ({ history }) => {
     _.remove(cloneCarts, (cart) => cart.id === item.id);
     set("cart", cloneCarts);
     setCarts(cloneCarts);
+    setCart(cloneCarts.length);
   };
   const sumTotal =
     carts.length > 0
