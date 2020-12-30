@@ -5,8 +5,15 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     zIndex: 100,
     [theme.breakpoints.up("lg")]: {
-      transitionDuration: "0.4s",
+      transitionDuration: "0.5s",
       transform: "translate(200px) scale(1.4,1.4)",
+    },
+  },
+  transition: {
+    [theme.breakpoints.up("lg")]: {
+      position: "relative",
+      zIndex: 100,
+      transitionDuration: "0.5s",
     },
   },
 }));
@@ -16,8 +23,11 @@ export const CardMediaCustom = ({ alt, height, src, title, zoom = false }) => {
   const validate = () => {
     if (zoom & hovered) {
       return classes.zoomImg;
+    } else if (zoom & !hovered) {
+      return classes.transition;
+    } else {
+      return "";
     }
-    return "";
   };
   return (
     <CardMedia
