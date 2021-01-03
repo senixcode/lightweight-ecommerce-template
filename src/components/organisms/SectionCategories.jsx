@@ -56,7 +56,7 @@ export const SectionCategories = ({ filterProduct, products }) => {
   };
   //console.log({ categories });
   return (
-    <>
+    <div style={{position:"sticky",top:80}}>
       <FormLabel component="legend">Category</FormLabel>
       <FormGroup>
         {categories.map((category) => {
@@ -75,6 +75,6 @@ export const SectionCategories = ({ filterProduct, products }) => {
           );
         })}
       </FormGroup>
-    </>
+    </div>
   );
 };

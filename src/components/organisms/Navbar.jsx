@@ -86,6 +86,10 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  navbar: {
+    zIndex: "10",
+  },
+
 }));
 
 export const Navbar = ({ search }) => {
@@ -120,9 +124,6 @@ export const Navbar = ({ search }) => {
     }
     return cart;
   };
-  // const handleProfileMenuOpen = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -192,7 +193,7 @@ export const Navbar = ({ search }) => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" color="inherit" elevation={0}>
+      <AppBar position="fixed" className={classes.navbar} color="inherit" elevation={0}>
         <Toolbar>
           <Typography
             onClick={handlePushProduct}

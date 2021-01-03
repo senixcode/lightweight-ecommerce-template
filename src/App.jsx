@@ -15,14 +15,8 @@ import { MyContext } from "./MyContext";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 const useStyles = makeStyles((theme) => ({
   root: {
-    flex: 1,
-    flexGrow:1,
-    flexDirection:"row",
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    // [theme.breakpoints.up("sm")]: {
-    //   margin: theme.spacing(2),
-    // },
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(10),
   },
 }));
 let theme = createMuiTheme();
