@@ -57,7 +57,6 @@ export const Detail = ({ history }) => {
   };
   const propsCardMediaCustom = {
     alt: product.title,
-    height: "auto",
     src: product.image,
     title: product.title,
     zoom: true,

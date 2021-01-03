@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Container,
   createMuiTheme,
   CssBaseline,
   makeStyles,
@@ -14,12 +15,14 @@ import { MyContext } from "./MyContext";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flex: 1,
+    flexGrow:1,
+    flexDirection:"row",
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up("lg")]: {
-      margin: theme.spacing(2),
-    },
+    // [theme.breakpoints.up("sm")]: {
+    //   margin: theme.spacing(2),
+    // },
   },
 }));
 let theme = createMuiTheme();
@@ -42,9 +45,9 @@ export const App = () => {
           {/*CssBaseline: normalize css */}
           <CssBaseline />
           <Navbar search="laptop" />
-          <div className={classes.root}>
+          <Container className={classes.root}>
             <SwitchRouter />
-          </div>
+          </Container>
         </Router>
       </MyContext.Provider>
     </ThemeProvider>

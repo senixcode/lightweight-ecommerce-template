@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Divider, fade, Grid, Hidden, makeStyles } from "@material-ui/core";
+import { fade, Grid, makeStyles } from "@material-ui/core";
 import TestData from "../../helper/TestData";
 import { CardProduct } from "../organisms/CardProduct";
 import { SectionCategories } from "../organisms/SectionCategories";
@@ -24,6 +24,14 @@ const useStyles = makeStyles((theme) => ({
       borderRightWidth: "thin",
     },
   },
+  product: {
+    flex: "1",
+    flexGrow: 1, 
+    minWidth:"250px",
+    [theme.breakpoints.up("lg")]:{
+      minWidth: "300px",
+    }
+  }
 }));
 export const Product = ({ history }) => {
   const classes = useStyles();
@@ -73,26 +81,26 @@ export const Product = ({ history }) => {
   };
   return (
     <Grid container direction="row" justify="center">
-      <Grid container spacing={1} item xs={12} lg={10}>
+      <Grid container item xs={'auto'}spacing={1}  sm={9} lg={10}>
         {products.length > 0 &&
           products.map((result) => (
-            <Grid item key={result.id}>
+            <Grid item key={result.id} className={classes.product}>
               <CardProduct {...result} />
             </Grid>
           ))}
       </Grid>
-      <Hidden lgUp>
-        <div className={classes.spcing} />
-      </Hidden>
-      <Divider orientation="vertical" flexItem />
+      {/* <Hidden smDown>
+        <Divider orientation="vertical" flexItem />
+      </Hidden> */}
       <Grid
         container
         item
         spacing={1}
-        xs={12}
+        xs={'auto'}
+        sm={2}
         lg={2}
         justify="center"
-        // className={classes.borderSectionCategory}
+      // className={classes.borderSectionCategory}
       >
         <Grid>
           <SectionCategories
