@@ -5,7 +5,13 @@ import { useHistory } from "react-router-dom";
 import { CardContentCustom } from "../molecules/CardContentCustom";
 import { shortString } from "../../helper/shortString";
 import { CardMediaCustom } from "../molecules/CardMediaCustom";
-
+import { makeStyles } from "@material-ui/core";
+const useStyles = makeStyles({
+  root: {
+       width:"300px",
+        minWidth:"250px",
+  },
+});
 export const CardProduct = (props) => {
   let history = useHistory();
   let title = shortString(props.title);
@@ -19,8 +25,9 @@ export const CardProduct = (props) => {
   const handlePushDetail = (id) => {
     history.push(`/product/${id}`);
   };
+   const classes = useStyles();
   return (
-    <Card onClick={() => handlePushDetail(props.id)} elevation={0}>
+    <Card onClick={() => handlePushDetail(props.id)} elevation={0} className={classes.root}>
       <CardActionArea>
         <CardMediaCustom {...propsCardMediaCustom} />
         <CardContentCustom title={title} />
